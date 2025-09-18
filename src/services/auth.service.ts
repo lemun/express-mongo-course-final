@@ -1,10 +1,10 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { UserModel, UserDocument, CreateUserInput } from "../schemas/user.schema";
+import { UserModel, UserDocument } from "../schemas/user.schema";
 import { logger } from "../middleware/logger.middleware";
 import { assertEnvironment } from "../utils/utils";
 
-export async function registerUser(userData: CreateUserInput): Promise<{ message: string }> {
+export async function registerUser(userData: UserDocument): Promise<{ message: string }> {
     try {
         userData.password = await bcrypt.hash(userData.password, 10);
         await UserModel.create(userData);
@@ -16,7 +16,7 @@ export async function registerUser(userData: CreateUserInput): Promise<{ message
     }
 }
 
-export async function loginUser(userData: CreateUserInput): Promise<any> {
+export async function loginUser(userData: UserDocument): Promise<any> {
     const { username, password } = userData;
 
     try {

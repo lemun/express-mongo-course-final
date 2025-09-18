@@ -6,7 +6,7 @@
 [![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
 [![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)](https://jwt.io/)
 
-> This is my final exam project for the **TESI (The External Studies Institute)** certification in backend development, featuring JWT authentication, validation, logging, and MongoDB integration.
+> This is my final exam project for the **TESI (The External Studies Institute)** certification in backend development, featuring JWT authentication, logging, and MongoDB integration.
 
 ## Quick Start
 
@@ -62,8 +62,7 @@ src/
 │   └── auth.controller.ts    # Authentication controller
 ├── middleware/               # Custom middleware functions
 │   ├── jwt.middleware.ts     # JWT authentication middleware
-│   ├── logger.middleware.ts  # Request logging middleware
-│   └── validation.middleware.ts # Request validation middleware
+│   └── logger.middleware.ts  # Request logging middleware
 ├── repositories/             # Data access layer
 │   ├── axios.repository.ts   # HTTP client repository
 │   └── json.repository.ts    # File-based data repository
@@ -118,7 +117,6 @@ curl -X GET http://localhost:3000/api/auth/profile \
 
 - **Password Hashing:** All passwords are hashed using bcrypt with 10 salt rounds
 - **JWT Tokens:** Secure token-based authentication with 24-hour expiration
-- **Input Validation:** Validation using Zod schemas
 - **Error Handling:** Secure error responses without sensitive data exposure
 - **Environment Variables:** Sensitive configuration stored in environment variables
 
@@ -126,6 +124,5 @@ curl -X GET http://localhost:3000/api/auth/profile \
 
 ### User Registration/Login
 
-- **Username:** 3-20 characters, unique, alphanumeric and underscores only
-- **Password:** 6-50 characters minimum for registration
-- **Required Fields:** Both username and password are mandatory
+- **Username:** unique, required
+- **Password:** required

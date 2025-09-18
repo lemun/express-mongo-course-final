@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
 import { registerUser, loginUser } from "../services/auth.service";
 import { logger } from "../middleware/logger.middleware";
-import { User, RegisterInput, LoginInput } from "../schemas/user.schema";
+import { UserDocument } from "../schemas/user.schema";
 import { AuthenticatedRequest } from "../middleware/jwt.middleware";
 
 export async function register(req: Request, res: Response) {
-    const { username, password } = req.body as RegisterInput;
+    const { username, password } = req.body as UserDocument;
 
     await registerUser({ username, password }).then((result) => {
         res.status(201).json(result);
@@ -18,9 +18,9 @@ export async function register(req: Request, res: Response) {
 }
 
 export async function login(req: Request, res: Response) {
-    const { username, password } = req.body as LoginInput;
+    const { username, password } = req.body as UserDocument;
 
-    await loginUser({ username, password }).then((user: User) => {
+    await loginUser({ username, password }).then((user: UserDocument) => {
         res.status(200).json(user);
     }).catch((error: Error) => {
         res.status(500).json({ message: "failed to login user" });
