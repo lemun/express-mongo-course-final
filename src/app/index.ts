@@ -13,11 +13,17 @@ const mongoURI = assertEnvironment("MONGO_URI");
 
 app.use(express.json());
 app.use(logRequests);
+app.use(session({
+    name: "cookie",
+    saveUninitialized: false,
+    secret: assertEnvironment("SECRET_COOKIE"),
+    resave: false,
+}));
 
 app.use("/api/auth", authRouter);
 
 app.get('/api', (req: Request, res: Response) => {
-    res.send('Hello World');
+    res.send('Server is alive!');
 });
 
 connectDB(mongoURI).then(() => {

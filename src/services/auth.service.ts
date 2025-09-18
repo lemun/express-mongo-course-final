@@ -16,9 +16,7 @@ export async function registerUser(userData: UserDocument): Promise<{ message: s
     }
 }
 
-export async function loginUser(userData: UserDocument): Promise<any> {
-    const { username, password } = userData;
-
+export async function loginUser(username: string, password: string): Promise<any> {
     try {
         const user = await UserModel.findOne({ username });
         if (!user) {
