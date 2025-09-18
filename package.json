@@ -4,7 +4,6 @@
   "description": "This is my final exam project for the **TESI (The External Studies Institute)** certification in backend development.   The project demonstrates my ability to work with **Node.js/Express**, **MongoDB**, and **API integration using Axios**.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
     "start": "node dist/src/app/index.js",
     "dev": "nodemon --exec ts-node src/app/index.ts"
