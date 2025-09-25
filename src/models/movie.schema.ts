@@ -19,7 +19,6 @@ const MovieSchema = new Schema({
         required: true
     }
 }, {
-    id: false,
     toJSON: { virtuals: false }
 });
 

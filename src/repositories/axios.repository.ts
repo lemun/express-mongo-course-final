@@ -1,5 +1,5 @@
 import axios from "axios";
-import { logger } from "../middleware/logger.middleware";
+import { logger } from "../middlewares/logger.middleware";
 
 export async function getDataFromAPI(url: string) {
     try {

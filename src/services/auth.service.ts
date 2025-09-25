@@ -1,8 +1,9 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { UserModel, UserDocument } from "../schemas/user.schema";
-import { logger } from "../middleware/logger.middleware";
+import { UserModel, UserDocument } from "../models/user.schema";
+import { logger } from "../middlewares/logger.middleware";
 import { assertEnvironment } from "../utils/utils";
+import { addUserToLog } from "../repositories/json.repository";
 
 export async function registerUser(userData: UserDocument): Promise<{ message: string }> {
     try {
@@ -30,7 +31,9 @@ export async function loginUser(username: string, password: string): Promise<any
             throw new Error("Invalid password");
         }
 
-        const token = jwt.sign({ id: user._id, username: user.username }, assertEnvironment("JWT_SECRET"), { expiresIn: '24h' });
+        const token = jwt.sign({ id: user.external_id, username: user.username }, assertEnvironment("JWT_SECRET"), { expiresIn: '24h' });
+
+        await addUserToLog(user.external_id);
         return { token: token };
     } catch (error) {
         logger.error(error, "Error logging in user");

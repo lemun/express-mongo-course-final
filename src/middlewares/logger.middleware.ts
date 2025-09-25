@@ -12,7 +12,7 @@ export const logger = pino({
 });
 
 export function logRequests(req: Request, res: Response, next: NextFunction) {
-  logger.info('New request: ' + req.method + ' ' + req.url);
+  logger.info('New request: ' + req.method + ' ' + req.url + ' ' + req.path + '' + req.params);
   
   next();
 }

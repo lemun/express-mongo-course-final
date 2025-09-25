@@ -2,9 +2,13 @@ import express from "express";
 import { Request, Response } from "express";
 import session from "express-session";
 import dotenv from "dotenv";
-import { logRequests, logger } from "../middleware/logger.middleware";
+import { logRequests, logger } from "../middlewares/logger.middleware";
 import { assertEnvironment, connectDB } from "../utils/utils";
 import authRouter from "../routes/auth.route";
+import usersRouter from "../routes/users.route";
+import moviesRouter from "../routes/movies.route";
+import { authenticateToken } from "../middlewares/jwt.middleware";
+
 dotenv.config();
 
 const app = express();
@@ -21,6 +25,8 @@ app.use(session({
 }));
 
 app.use("/api/auth", authRouter);
+app.use("/api/users", authenticateToken, usersRouter);
+app.use("/api/movies", authenticateToken, moviesRouter);
 
 app.get('/api', (req: Request, res: Response) => {
     res.send('Server is alive!');

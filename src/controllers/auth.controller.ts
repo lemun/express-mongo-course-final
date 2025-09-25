@@ -1,8 +1,7 @@
 import { Request, Response } from "express";
-import { registerUser, loginUser } from "../services/auth.service";
-import { logger } from "../middleware/logger.middleware";
-import { UserDocument } from "../schemas/user.schema";
-import { AuthenticatedRequest } from "../middleware/jwt.middleware";
+import { logger } from "../middlewares/logger.middleware";
+import { UserDocument } from "../models/user.schema";
+import { loginUser, registerUser } from "../services/auth.service";
 
 export async function register(req: Request, res: Response) {
     const user: UserDocument = req.body;
@@ -10,10 +9,8 @@ export async function register(req: Request, res: Response) {
     await registerUser(user).then((result) => {
         res.status(201).json(result);
     }).catch((error: Error) => {
-        res.status(500).json({ message: "failed to register user" });
+        res.status(500).json({ error: "failed to register user" });
         logger.error(error, "Error registering user");
-
-        return;
     });
 }
 
@@ -30,14 +27,7 @@ export async function login(req: Request, res: Response) {
         });
         res.status(200).json({ message: "user logged in" });
     } catch (error) {
-        res.status(500).json({ message: "failed to login user" });
+        res.status(500).json({ error: "failed to login user" });
         logger.error(error, "Error logging in user");
     }
-}
-
-export async function test(req: AuthenticatedRequest, res: Response) {
-    res.status(200).json({
-        message: "jwt is valid",
-        user: req.user
-    });
 }

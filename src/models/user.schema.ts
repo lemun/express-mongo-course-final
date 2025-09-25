@@ -1,6 +1,11 @@
 import { Schema, model, InferSchemaType } from "mongoose";
 
 const UserSchema = new Schema({
+    external_id: {
+        type: Number,
+        required: true,
+        unique: true
+    },
     username: {
         type: String,
         required: true,
@@ -21,10 +26,9 @@ const UserSchema = new Schema({
     },
     password: {
         type: String,
-        required: true,
+        required: true
     }
 }, {
-    id: false,
     toJSON: { virtuals: false }
 });
 
